@@ -1,0 +1,22 @@
+{
+  "name": "doodle_blue_task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mainfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "karthik",
+  "license": "(ISC) MIT",
+  "dependencies": {
+    "async": "^3.2.2",
+    "body-parser": "^1.19.0",
+    "convert-excel-to-json": "^1.7.0",
+    "csvtojson": "^2.0.10",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mongodb": "^4.2.0",
+    "mongoose": "^6.0.13",
+    "node-cron": "^3.0.0"
+  }
+}

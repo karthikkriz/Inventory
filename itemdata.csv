@@ -1,0 +1,11 @@
+itemcode,itemname,itemdescription,unitprice,quantity,batchid
+ITM00001,laptop,laptop,40000,10,BAT001
+ITM00002,mobile,mobile,40000,10,BAT002
+ITM00003,bike,bike,100000,10,BAT003
+ITM00004,powder,powder,50,10,BAT004
+ITM00005,toothpaste,toothpaste,40,10,BAT005
+ITM00006,pillow,pillow,200,10,BAT006
+ITM00007,telivision,telivision,7000,10,BAT007
+ITM00008,bicycle,bicycle,10000,10,BAT008
+ITM00009,car,car,400000,10,BAT009
+ITM00010,paracetamol,paracetamol,10,10,BAT010
