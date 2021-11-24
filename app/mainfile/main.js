@@ -61,7 +61,7 @@ exports.itemscreteorupdate = (async (req, res) => {
 
 inserupdate = (async (req, result, subcallback) => {
     if (!!req.body.username && req.body.username) {
-        let userdata = await User.findOne({ statusflag: "A", isadmin: true, username: { '$regex': new RegExp('^' + req.body.username + '$', 'i') } });
+        let userdata = await User.findOne({ statusflag: "A", isadmin: true, authtoken: req.body.authtoken, username: { '$regex': new RegExp('^' + req.body.username + '$', 'i') } });
 
         if (!userdata) {
             setTimeout((function () { subcallback({ request: 400, message: "Invalid Username or Is Not Admin" }) }));
@@ -134,7 +134,7 @@ exports.createloginorreg = (async (req, res) => {
             User.findOne({ statusflag: "A", username: req.body.username }).exec(function (err, userdata) {
 
                 if (!!userdata && userdata) {
-                    res.status(400).json({ "Result": "Username is alredy Available" });
+                    res.status(400).json({ "Result": "Username is already Available" });
                     return;
                 }
                 else {
@@ -165,7 +165,7 @@ exports.createloginorreg = (async (req, res) => {
                             return;
                         }
                         else {
-                            res.status(200).json({ "Result": "Login Created Succesfully" });
+                            res.status(200).json({ "Result": "Login Created Successfully" });
                             return;
                         }
                     });
@@ -190,19 +190,19 @@ exports.createloginorreg = (async (req, res) => {
                         usrdata.islogined = true;
                         usrdata.modifiedat = Date.now();
                         usrdata.save(function (err) {
-                            res.status(200).json({ "Result": "Logined Succesfully", "Token": autotoken });
+                            res.status(200).json({ "Result": "Logined successfully", "Token": autotoken });
                             return;
                         });
                     });
                 }
                 else {
-                    res.status(400).json({ "Result": "username or password is invalid" });
+                    res.status(400).json({ "Result": "Username or password is Invalid" });
                     return;
                 }
             });
         }
         else {
-            res.status(400).json({ "Result": "username or password in not available" });
+            res.status(400).json({ "Result": "Username or password in not available" });
             return;
         }
     }
@@ -251,7 +251,7 @@ exports.createupdatecancelorder = (async (req, res) => {
                             callback();
                         }
                         else {
-                            res.status(400).json({ "Result": "Stock Is Not Available select Less  Quantity" });
+                            res.status(400).json({ "Result": "Invalid Itemcode or Stock Is Not Available select Less Quantity" });
                             return;
                         }
                     });
@@ -262,7 +262,7 @@ exports.createupdatecancelorder = (async (req, res) => {
                             return;
                         }
                         else {
-                            res.status(200).json({ "Result": "Order Succesfully Created", "ordernumber": orderdata.ordercode });
+                            res.status(200).json({ "Result": "Order Successfully Created", "ordernumber": orderdata.ordercode });
                             return;
                         }
                     });
@@ -300,14 +300,14 @@ exports.createupdatecancelorder = (async (req, res) => {
                                     return;
                                 }
                                 else {
-                                    res.status(200).json({ "Result": "Order Succesfully Updated", "ordernumber": orderdata.ordercode });
+                                    res.status(200).json({ "Result": "Order Successfully Updated", "Ordernumber": orderdata.ordercode });
                                     return;
                                 }
                             });
                         });
                     }
                     else {
-                        res.status(400).json({ "Result": "Invalide Order Number Or approved or Cancelled" });
+                        res.status(400).json({ "Result": "Invalid Order Number or Approved or Cancelled" });
                         return;
                     }
                 });
@@ -368,7 +368,7 @@ exports.createupdatecancelorder = (async (req, res) => {
                                             });
                                         });
                                     }, function () {
-                                        res.status(200).json({ "Result": "Order Succesfully Approved" });
+                                        res.status(200).json({ "Result": "Order Successfully Approved" });
                                         return;
                                     });
                                 }
@@ -643,7 +643,7 @@ exports.checkgeneratetoken = (async (callback) => {
         if (!!userdata && userdata && userdata.length > 0) {
             async.eachSeries(userdata, function (item, itemcallback) {
                 let seconds = Math.abs(item.tokengenerateddate - Date.now()) / 1000;
-                if (seconds > 300) {
+                if (seconds > 480) {
                     User.findOneAndUpdate({ statusflag: "A", _id: mongoose.Types.ObjectId(item._id) }, { $set: { "autotoken": null, "tokengenerateddate": null } }, function (err, value) {
                         itemcallback()
                     });
