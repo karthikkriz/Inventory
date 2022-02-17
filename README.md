@@ -1,1 +1,1 @@
-# Basic Inventory Module -  Backend
+# Basic Inventory Model - Backend
